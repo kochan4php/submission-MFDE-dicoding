@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
               return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
             case MovieDetailPage.ROUTE_NAME:
               final id = settings.arguments as int;
-              return MaterialPageRoute(
+              return CupertinoPageRoute(
                 builder: (_) => MovieDetailPage(id: id),
                 settings: settings,
               );
