@@ -38,6 +38,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
     return Scaffold(
       appBar: AppBar(
         title: Text('Watchlist'),
+        forceMaterialTransparency: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

@@ -25,6 +25,7 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Top Rated Movies'),
+        forceMaterialTransparency: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),

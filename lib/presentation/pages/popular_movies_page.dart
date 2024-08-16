@@ -25,6 +25,7 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Popular Movies'),
+        forceMaterialTransparency: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
