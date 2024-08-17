@@ -4,8 +4,8 @@ import 'package:ditonton/domain/usecases/search_tv_series.dart';
 import 'package:flutter/foundation.dart';
 
 class TvSeriesSearchNotifier extends ChangeNotifier {
-  List<TvSeries> _searchedTvSeries = [];
-  List<TvSeries> get searchedTvSeries => _searchedTvSeries;
+  List<TvSeries> _searchResult = [];
+  List<TvSeries> get searchResult => _searchResult;
 
   RequestState _searchTvSeriesState = RequestState.Empty;
   RequestState get searchTvSeriesState => _searchTvSeriesState;
@@ -31,7 +31,7 @@ class TvSeriesSearchNotifier extends ChangeNotifier {
       },
       (data) {
         _searchTvSeriesState = RequestState.Loaded;
-        _searchedTvSeries = data;
+        _searchResult = data;
         notifyListeners();
       },
     );

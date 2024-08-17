@@ -30,7 +30,7 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return TvSeriesResponse.fromJson(jsonDecode(response.body)).tvSeriesList;
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
       throw ServerException();
     }
@@ -43,7 +43,7 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return TvSeriesResponse.fromJson(jsonDecode(response.body)).tvSeriesList;
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
       throw ServerException();
     }
@@ -56,7 +56,7 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return TvSeriesResponse.fromJson(jsonDecode(response.body)).tvSeriesList;
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
       throw ServerException();
     }
@@ -69,7 +69,7 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      return TvSeriesDetailModel.fromJson(jsonDecode(response.body));
+      return TvSeriesDetailModel.fromJson(json.decode(response.body));
     } else {
       throw ServerException();
     }
@@ -81,8 +81,10 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
       Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'),
     );
 
+    print(response.body);
+
     if (response.statusCode == 200) {
-      return TvSeriesResponse.fromJson(jsonDecode(response.body)).tvSeriesList;
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
       throw ServerException();
     }
@@ -91,11 +93,12 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
   @override
   Future<List<TvSeriesModel>> searchTvSeries(String query) async {
     final response = await client.get(
-      Uri.parse('$BASE_URL/tv/search?$API_KEY&query=$query'),
+      Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'),
     );
 
     if (response.statusCode == 200) {
-      return TvSeriesResponse.fromJson(jsonDecode(response.body)).tvSeriesList;
+      print(response.body);
+      return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
       throw ServerException();
     }

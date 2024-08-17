@@ -3,14 +3,13 @@ import 'package:equatable/equatable.dart';
 
 class TvSeriesModel extends Equatable {
   final bool adult;
-  final String backdropPath;
   final List<int> genreIds;
   final int id;
   final List<String> originCountry;
   final String originalLanguage;
   final String originalName;
   final String overview;
-  final String popularity;
+  final double popularity;
   final String? posterPath;
   final String firstAirDate;
   final String name;
@@ -19,7 +18,6 @@ class TvSeriesModel extends Equatable {
 
   TvSeriesModel({
     required this.adult,
-    required this.backdropPath,
     required this.genreIds,
     required this.id,
     required this.originCountry,
@@ -37,7 +35,6 @@ class TvSeriesModel extends Equatable {
   factory TvSeriesModel.fromJson(Map<String, dynamic> json) {
     return TvSeriesModel(
       adult: json['adult'],
-      backdropPath: json['backdrop_path'],
       genreIds: List<int>.from(
         (json['genre_ids'] as List).map((x) => x),
       ),
@@ -60,26 +57,24 @@ class TvSeriesModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'adult': adult,
-      'backdropPath': backdropPath,
-      'genreIds': List<int>.from(genreIds.map((x) => x)),
+      'genre_ids': List<int>.from(genreIds.map((x) => x)),
       'id': id,
-      'originCountry': List<String>.from(originCountry.map((x) => x)),
-      'originalLanguage': originalLanguage,
-      'originalName': originalName,
+      'origin_country': List<String>.from(originCountry.map((x) => x)),
+      'original_language': originalLanguage,
+      'original_name': originalName,
       'overview': overview,
       'popularity': popularity,
-      'posterPath': posterPath,
-      'firstAirDate': firstAirDate,
+      'poster_path': posterPath,
+      'first_air_date': firstAirDate,
       'name': name,
-      'voteAverage': voteAverage,
-      'voteCount': voteCount,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
     };
   }
 
   TvSeries toEntity() {
     return TvSeries(
       adult: this.adult,
-      backdropPath: this.backdropPath,
       genreIds: this.genreIds,
       id: this.id,
       originalLanguage: this.originalLanguage,
@@ -97,7 +92,6 @@ class TvSeriesModel extends Equatable {
   @override
   List<Object?> get props => [
         adult,
-        backdropPath,
         genreIds,
         id,
         originCountry,

@@ -8,11 +8,8 @@ class TvSeriesResponse extends Equatable {
 
   factory TvSeriesResponse.fromJson(Map<String, dynamic> json) {
     return TvSeriesResponse(
-      tvSeriesList: List<TvSeriesModel>.from(
-        (json['results'] as List)
-            .map((tvSeries) => TvSeriesModel.fromJson(json))
-            .where((tvSeries) => tvSeries.posterPath != null),
-      ),
+      tvSeriesList: List<TvSeriesModel>.from((json['results'] as List)
+          .map((tvSeries) => TvSeriesModel.fromJson(tvSeries))),
     );
   }
 

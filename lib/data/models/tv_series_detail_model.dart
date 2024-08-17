@@ -10,7 +10,7 @@ class TvSeriesDetailModel extends Equatable {
   final String originalLanguage;
   final String originalName;
   final String overview;
-  final String popularity;
+  final double popularity;
   final String posterPath;
   final String firstAirDate;
   final String name;
@@ -48,7 +48,7 @@ class TvSeriesDetailModel extends Equatable {
       originalLanguage: json['original_language'],
       originalName: json['original_name'],
       overview: json['overview'],
-      popularity: json['popularity'],
+      popularity: json['popularity'].toDouble(),
       posterPath: json['poster_path'],
       firstAirDate: json['first_air_date'],
       name: json['name'],
@@ -62,20 +62,20 @@ class TvSeriesDetailModel extends Equatable {
   Map<String, dynamic> toJson() {
     return {
       'adult': adult,
-      'backdropPath': backdropPath,
-      'genres': genres.map((x) => x.toJson()).toList(),
+      'backdrop_path': backdropPath,
+      'genres': List<dynamic>.from(genres.map((x) => x.toJson())),
       'id': id,
-      'originalLanguage': originalLanguage,
-      'originalName': originalName,
+      'original_language': originalLanguage,
+      'original_name': originalName,
       'overview': overview,
       'popularity': popularity,
-      'posterPath': posterPath,
-      'firstAirDate': firstAirDate,
+      'poster_path': posterPath,
+      'first_air_date': firstAirDate,
       'name': name,
-      'voteAverage': voteAverage,
-      'voteCount': voteCount,
-      'numberOfEpisodes': numberOfEpisodes,
-      'numberOfSeasons': numberOfSeasons,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
+      'number_of_episodes': numberOfEpisodes,
+      'number_of_seasons': numberOfSeasons,
     };
   }
 

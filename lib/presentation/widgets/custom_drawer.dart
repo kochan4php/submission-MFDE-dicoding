@@ -1,8 +1,8 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
-import 'package:ditonton/presentation/pages/airing_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/home_movie_page.dart';
-import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
+import 'package:ditonton/presentation/pages/tv_series_list_page.dart';
+import 'package:ditonton/presentation/pages/watchlist_page.dart';
 import 'package:flutter/material.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -38,16 +38,6 @@ class CustomDrawer extends StatelessWidget {
             ],
           ),
           ListTile(
-            leading: Icon(Icons.tv_rounded),
-            title: Text('TV Series'),
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                context,
-                AiringTvSeriesPage.ROUTE_NAME,
-              );
-            },
-          ),
-          ListTile(
             leading: Icon(Icons.movie),
             title: Text('Movies'),
             onTap: () {
@@ -58,10 +48,20 @@ class CustomDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+            leading: Icon(Icons.tv_rounded),
+            title: Text('TV Series'),
+            onTap: () {
+              Navigator.pushReplacementNamed(
+                context,
+                TvSeriesListPage.ROUTE_NAME,
+              );
+            },
+          ),
+          ListTile(
             leading: Icon(Icons.save_alt),
             title: Text('Watchlist'),
             onTap: () {
-              Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+              Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
             },
           ),
           ListTile(
