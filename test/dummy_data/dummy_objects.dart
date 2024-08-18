@@ -2,6 +2,7 @@ import 'package:ditonton/data/models/movie_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -57,3 +58,19 @@ final testMovieMap = {
   'posterPath': 'posterPath',
   'title': 'title',
 };
+
+// tv series
+final TvSeriesDetail testTvSeriesDetail = TvSeriesDetail(
+  id: 1,
+  name: 'name',
+  adult: false,
+  backdropPath: 'backdropPath',
+  genres: [Genre(id: 1, name: 'romance')],
+  originalLanguage: 'originalLanguage',
+  originalName: 'originalName',
+  overview: 'overview',
+  posterPath: 'posterPath',
+  numberOfEpisodes: 12,
+  numberOfSeasons: 2,
+  voteAverage: 4.5,
+);
