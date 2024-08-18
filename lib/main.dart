@@ -38,45 +38,47 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final providers = [
+      ChangeNotifierProvider(
+        create: (_) => di.locator<MovieListNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<MovieDetailNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<MovieSearchNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<TopRatedMoviesNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<PopularMoviesNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<WatchlistMovieNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<TvSeriesListNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<TvSeriesDetailNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<TopRatedTvSeriesNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<PopularTvSeriesNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<TvSeriesSearchNotifier>(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => di.locator<WatchlistTvSeriesNotifier>(),
+      ),
+    ];
+
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularMoviesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistMovieNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesListNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesDetailNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TopRatedTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<PopularTvSeriesNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<TvSeriesSearchNotifier>(),
-        ),
-        ChangeNotifierProvider(
-          create: (_) => di.locator<WatchlistTvSeriesNotifier>(),
-        ),
-      ],
+      providers: providers,
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData.dark().copyWith(
@@ -97,7 +99,7 @@ class MyApp extends StatelessWidget {
     switch (settings.name) {
       // movie
       case HomeMoviePage.ROUTE_NAME:
-        return CupertinoPageRoute(builder: (_) => HomeMoviePage());
+        return MaterialPageRoute(builder: (_) => HomeMoviePage());
       case PopularMoviesPage.ROUTE_NAME:
         return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
       case TopRatedMoviesPage.ROUTE_NAME:
@@ -114,7 +116,7 @@ class MyApp extends StatelessWidget {
 
       // tv series
       case TvSeriesListPage.ROUTE_NAME:
-        return CupertinoPageRoute(builder: (_) => TvSeriesListPage());
+        return MaterialPageRoute(builder: (_) => TvSeriesListPage());
       case PopularTvSeriesPage.ROUTE_NAME:
         return CupertinoPageRoute(builder: (_) => PopularTvSeriesPage());
       case TopRatedTvSeriesPage.ROUTE_NAME:
@@ -139,7 +141,7 @@ class MyApp extends StatelessWidget {
 
       // watchlist page
       case WatchlistPage.ROUTE_NAME:
-        return CupertinoPageRoute(builder: (_) => WatchlistPage());
+        return MaterialPageRoute(builder: (_) => WatchlistPage());
       case AboutPage.ROUTE_NAME:
         return MaterialPageRoute(builder: (_) => AboutPage());
       default:

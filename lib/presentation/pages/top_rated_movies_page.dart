@@ -15,9 +15,10 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<TopRatedMoviesNotifier>(context, listen: false)
-            .fetchTopRatedMovies());
+    Future.microtask(
+      () => Provider.of<TopRatedMoviesNotifier>(context, listen: false)
+          .fetchTopRatedMovies(),
+    );
   }
 
   @override
@@ -32,15 +33,10 @@ class _TopRatedMoviesPageState extends State<TopRatedMoviesPage> {
         child: Consumer<TopRatedMoviesNotifier>(
           builder: (context, data, child) {
             if (data.state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (data.state == RequestState.Loaded) {
               return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.movies[index];
-                  return MovieCard(movie);
-                },
+                itemBuilder: (context, index) => MovieCard(data.movies[index]),
                 itemCount: data.movies.length,
               );
             } else {

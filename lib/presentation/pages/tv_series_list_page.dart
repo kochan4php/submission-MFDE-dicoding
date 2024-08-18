@@ -24,6 +24,7 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
       Provider.of<TvSeriesListNotifier>(context, listen: false)
         ..fetchNowAiringTvSeries()
@@ -41,13 +42,11 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
         forceMaterialTransparency: true,
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                SearchPage.ROUTE_NAME,
-                arguments: false,
-              );
-            },
+            onPressed: () => Navigator.pushNamed(
+              context,
+              SearchPage.ROUTE_NAME,
+              arguments: false,
+            ),
             icon: Icon(Icons.search),
           )
         ],
@@ -60,10 +59,7 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  'Now Airing',
-                  style: kHeading6,
-                ),
+                child: Text('Now Airing', style: kHeading6),
               ),
               const SizedBox(height: 10),
               Consumer<TvSeriesListNotifier>(
@@ -71,9 +67,7 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
                   final state = data.nowAiringState;
 
                   if (state == RequestState.Loading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state == RequestState.Loaded) {
                     return TvSeriesList(tvSeries: data.nowAiringTvSeries);
                   } else {
@@ -93,9 +87,7 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
                   final state = data.popularTvSeriesState;
 
                   if (state == RequestState.Loading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state == RequestState.Loaded) {
                     return TvSeriesList(tvSeries: data.popularTvSeries);
                   } else {
@@ -116,9 +108,7 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
                   final state = data.topRatedTvSeriesState;
 
                   if (state == RequestState.Loading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state == RequestState.Loaded) {
                     return TvSeriesList(tvSeries: data.topRatedTvSeries);
                   } else {
@@ -147,7 +137,8 @@ class TvSeriesList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         itemCount: tvSeries.length,
         itemBuilder: (context, index) {
-          final TvSeries tv = tvSeries[index];
+          final tv = tvSeries[index];
+
           return Container(
             padding: const EdgeInsets.all(8),
             child: GestureDetector(
@@ -162,14 +153,12 @@ class TvSeriesList extends StatelessWidget {
                   imageUrl: '$BASE_IMAGE_URL${tv.posterPath}',
                   width: 130,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) {
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey[700]!,
-                      highlightColor: Colors.grey[500]!,
-                      enabled: true,
-                      child: Container(height: 130, color: Colors.grey),
-                    );
-                  },
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[700]!,
+                    highlightColor: Colors.grey[500]!,
+                    enabled: true,
+                    child: Container(height: 130, color: Colors.grey),
+                  ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),

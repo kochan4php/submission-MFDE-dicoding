@@ -17,9 +17,10 @@ class _WatchlistTvSeriesPageState extends State<WatchlistTvSeriesPage>
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
-            .fetchWatchlistTvSeries());
+    Future.microtask(
+      () => Provider.of<WatchlistTvSeriesNotifier>(context, listen: false)
+          .fetchWatchlistTvSeries(),
+    );
   }
 
   @override
@@ -44,16 +45,15 @@ class _WatchlistTvSeriesPageState extends State<WatchlistTvSeriesPage>
         padding: const EdgeInsets.all(8.0),
         child: Consumer<WatchlistTvSeriesNotifier>(
           builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            final state = data.watchlistState;
+
+            if (state == RequestState.Loading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state == RequestState.Loaded) {
               return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvSeries = data.watchlistTvSeries[index];
-                  return TvSeriesCard(tvSeries);
-                },
+                itemBuilder: (context, index) => TvSeriesCard(
+                  data.watchlistTvSeries[index],
+                ),
                 itemCount: data.watchlistTvSeries.length,
               );
             } else {

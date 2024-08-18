@@ -36,15 +36,12 @@ class _TopRatedTvSeriesPageState extends State<TopRatedTvSeriesPage> {
             final state = data.topRatedState;
 
             if (state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (state == RequestState.Loaded) {
               return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvSeries = data.topRatedTvSeries[index];
-                  return TvSeriesCard(tvSeries);
-                },
+                itemBuilder: (context, index) => TvSeriesCard(
+                  data.topRatedTvSeries[index],
+                ),
                 itemCount: data.topRatedTvSeries.length,
               );
             } else {

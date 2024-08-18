@@ -40,13 +40,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         title: Text('Ditonton'),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.pushNamed(
-                context,
-                SearchPage.ROUTE_NAME,
-                arguments: true,
-              );
-            },
+            onPressed: () => Navigator.pushNamed(
+              context,
+              SearchPage.ROUTE_NAME,
+              arguments: true,
+            ),
             icon: Icon(Icons.search),
           )
         ],
@@ -59,19 +57,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text(
-                  'Now Playing',
-                  style: kHeading6,
-                ),
+                child: Text('Now Playing', style: kHeading6),
               ),
               const SizedBox(height: 5),
               Consumer<MovieListNotifier>(
                 builder: (context, data, child) {
                   final state = data.nowPlayingState;
+
                   if (state == RequestState.Loading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state == RequestState.Loaded) {
                     return MovieList(data.nowPlayingMovies);
                   } else {
@@ -90,10 +84,9 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               Consumer<MovieListNotifier>(
                 builder: (context, data, child) {
                   final state = data.popularMoviesState;
+
                   if (state == RequestState.Loading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
+                    return Center(child: CircularProgressIndicator());
                   } else if (state == RequestState.Loaded) {
                     return MovieList(data.popularMovies);
                   } else {
@@ -111,10 +104,9 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedMoviesState;
+
                 if (state == RequestState.Loading) {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
+                  return Center(child: CircularProgressIndicator());
                 } else if (state == RequestState.Loaded) {
                   return MovieList(data.topRatedMovies);
                 } else {
@@ -145,27 +137,23 @@ class MovieList extends StatelessWidget {
           return Container(
             padding: const EdgeInsets.all(8),
             child: InkWell(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  MovieDetailPage.ROUTE_NAME,
-                  arguments: movie.id,
-                );
-              },
+              onTap: () => Navigator.pushNamed(
+                context,
+                MovieDetailPage.ROUTE_NAME,
+                arguments: movie.id,
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
                   width: 120,
                   fit: BoxFit.cover,
-                  placeholder: (context, url) {
-                    return Shimmer.fromColors(
-                      baseColor: Colors.grey[700]!,
-                      highlightColor: Colors.grey[500]!,
-                      enabled: true,
-                      child: Container(height: 120, color: Colors.grey),
-                    );
-                  },
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: Colors.grey[700]!,
+                    highlightColor: Colors.grey[500]!,
+                    enabled: true,
+                    child: Container(height: 120, color: Colors.grey),
+                  ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
               ),

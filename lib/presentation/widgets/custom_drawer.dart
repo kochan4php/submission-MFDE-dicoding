@@ -29,10 +29,7 @@ class CustomDrawer extends StatelessWidget {
                 right: 5,
                 child: IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: const Icon(
-                    Icons.close,
-                    size: 30,
-                  ),
+                  icon: const Icon(Icons.close, size: 30),
                 ),
               ),
             ],
@@ -40,34 +37,32 @@ class CustomDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.movie),
             title: Text('Movies'),
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                context,
-                HomeMoviePage.ROUTE_NAME,
-              );
-            },
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              HomeMoviePage.ROUTE_NAME,
+            ),
           ),
           ListTile(
             leading: Icon(Icons.tv_rounded),
             title: Text('TV Series'),
-            onTap: () {
-              Navigator.pushReplacementNamed(
-                context,
-                TvSeriesListPage.ROUTE_NAME,
-              );
-            },
+            onTap: () => Navigator.pushReplacementNamed(
+              context,
+              TvSeriesListPage.ROUTE_NAME,
+            ),
           ),
           ListTile(
             leading: Icon(Icons.save_alt),
             title: Text('Watchlist'),
-            onTap: () {
-              Navigator.pushNamed(context, WatchlistPage.ROUTE_NAME);
-            },
+            onTap: () => Navigator.pushNamed(
+              context,
+              WatchlistPage.ROUTE_NAME,
+            ),
           ),
           ListTile(
-            onTap: () {
-              Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
-            },
+            onTap: () => Navigator.pushNamed(
+              context,
+              AboutPage.ROUTE_NAME,
+            ),
             leading: Icon(Icons.info_outline),
             title: Text('About'),
           ),

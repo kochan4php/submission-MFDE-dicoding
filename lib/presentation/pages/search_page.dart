@@ -56,19 +56,19 @@ class SearchPage extends StatelessWidget {
     return isSearchMovie
         ? Consumer<MovieSearchNotifier>(
             builder: (context, data, child) {
-              if (data.state == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (data.state == RequestState.Loaded) {
+              final state = data.state;
+
+              if (state == RequestState.Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state == RequestState.Loaded) {
                 final result = data.searchResult;
+
                 return Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(8),
-                    itemBuilder: (context, index) {
-                      final movie = data.searchResult[index];
-                      return MovieCard(movie);
-                    },
+                    itemBuilder: (context, index) => MovieCard(
+                      data.searchResult[index],
+                    ),
                     itemCount: result.length,
                   ),
                 );
@@ -79,19 +79,19 @@ class SearchPage extends StatelessWidget {
           )
         : Consumer<TvSeriesSearchNotifier>(
             builder: (context, data, child) {
-              if (data.searchTvSeriesState == RequestState.Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (data.searchTvSeriesState == RequestState.Loaded) {
+              final state = data.searchTvSeriesState;
+
+              if (state == RequestState.Loading) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state == RequestState.Loaded) {
                 final result = data.searchResult;
+
                 return Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(8),
-                    itemBuilder: (context, index) {
-                      final tvSeries = data.searchResult[index];
-                      return TvSeriesCard(tvSeries);
-                    },
+                    itemBuilder: (context, index) => TvSeriesCard(
+                      data.searchResult[index],
+                    ),
                     itemCount: result.length,
                   ),
                 );

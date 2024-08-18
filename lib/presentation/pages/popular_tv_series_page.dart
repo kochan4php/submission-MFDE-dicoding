@@ -36,15 +36,12 @@ class _PopularTvSeriesPageState extends State<PopularTvSeriesPage> {
             final state = data.popularTvSeriesState;
 
             if (state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
+              return Center(child: CircularProgressIndicator());
             } else if (state == RequestState.Loaded) {
               return ListView.builder(
-                itemBuilder: (context, index) {
-                  final tvSeries = data.popularTvSeries[index];
-                  return TvSeriesCard(tvSeries);
-                },
+                itemBuilder: (context, index) => TvSeriesCard(
+                  data.popularTvSeries[index],
+                ),
                 itemCount: data.popularTvSeries.length,
               );
             } else {

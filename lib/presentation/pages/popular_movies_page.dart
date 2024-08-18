@@ -15,9 +15,11 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() =>
-        Provider.of<PopularMoviesNotifier>(context, listen: false)
-            .fetchPopularMovies());
+
+    Future.microtask(
+      () => Provider.of<PopularMoviesNotifier>(context, listen: false)
+          .fetchPopularMovies(),
+    );
   }
 
   @override
@@ -31,16 +33,13 @@ class _PopularMoviesPageState extends State<PopularMoviesPage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<PopularMoviesNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.state == RequestState.Loaded) {
+            final state = data.state;
+
+            if (state == RequestState.Loading) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state == RequestState.Loaded) {
               return ListView.builder(
-                itemBuilder: (context, index) {
-                  final movie = data.movies[index];
-                  return MovieCard(movie);
-                },
+                itemBuilder: (context, index) => MovieCard(data.movies[index]),
                 itemCount: data.movies.length,
               );
             } else {

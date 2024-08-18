@@ -1,4 +1,5 @@
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/presentation/pages/home_movie_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_tv_series_page.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +14,14 @@ class WatchlistPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Choose Watchlist'),
         forceMaterialTransparency: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          onPressed: () => Navigator.pushReplacementNamed(
+            context,
+            HomeMoviePage.ROUTE_NAME,
+          ),
+          icon: const Icon(Icons.arrow_back),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),

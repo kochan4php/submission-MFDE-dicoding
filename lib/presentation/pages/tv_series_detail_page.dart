@@ -24,6 +24,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
   @override
   void initState() {
     super.initState();
+
     Future.microtask(() {
       Provider.of<TvSeriesDetailNotifier>(context, listen: false)
         ..fetchTvSeriesDetail(widget.id)
@@ -72,6 +73,7 @@ class DetailContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
+
     return Stack(
       children: [
         CachedNetworkImage(
@@ -85,6 +87,7 @@ class DetailContent extends StatelessWidget {
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
           child: DraggableScrollableSheet(
+            snap: true,
             builder: (context, scrollController) {
               return Container(
                 decoration: BoxDecoration(
@@ -105,70 +108,9 @@ class DetailContent extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              tvSeries.name,
-                              style: kHeading5,
-                            ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: kMikadoYellow,
-                                foregroundColor: kRichBlack,
-                              ),
-                              onPressed: () async {
-                                if (!isAddedWatchlist) {
-                                  await Provider.of<TvSeriesDetailNotifier>(
-                                    context,
-                                    listen: false,
-                                  ).addWatchlist(tvSeries);
-                                } else {
-                                  await Provider.of<TvSeriesDetailNotifier>(
-                                    context,
-                                    listen: false,
-                                  ).removeWatchlist(tvSeries);
-                                }
-
-                                final message =
-                                    Provider.of<TvSeriesDetailNotifier>(
-                                  context,
-                                  listen: false,
-                                ).watchlistMessage;
-
-                                if (message ==
-                                        TvSeriesDetailNotifier
-                                            .watchlistAddSuccessMessage ||
-                                    message ==
-                                        TvSeriesDetailNotifier
-                                            .watchlistRemoveSuccessMessage) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(message)),
-                                  );
-                                } else {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        content: Text(message),
-                                      );
-                                    },
-                                  );
-                                }
-                              },
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  isAddedWatchlist
-                                      ? Icon(Icons.check)
-                                      : Icon(Icons.add),
-                                  Text('Watchlist'),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              _showGenres(tvSeries.genres),
-                            ),
-                            // Text(
-                            //   _showDuration(tvSeries.runtime),
-                            // ),
+                            Text(tvSeries.name, style: kHeading5),
+                            _buildWatchlistButton(context),
+                            Text(_showGenres(tvSeries.genres)),
                             Row(
                               children: [
                                 RatingBarIndicator(
@@ -184,88 +126,11 @@ class DetailContent extends StatelessWidget {
                               ],
                             ),
                             SizedBox(height: 16),
-                            Text(
-                              'Overview',
-                              style: kHeading6,
-                            ),
-                            Text(
-                              tvSeries.overview,
-                            ),
+                            Text('Overview', style: kHeading6),
+                            Text(tvSeries.overview),
                             SizedBox(height: 16),
-                            Text(
-                              'Recommendations',
-                              style: kHeading6,
-                            ),
-                            Consumer<TvSeriesDetailNotifier>(
-                              builder: (context, data, child) {
-                                if (data.recommendationState ==
-                                    RequestState.Loading) {
-                                  return Center(
-                                    child: CircularProgressIndicator(),
-                                  );
-                                } else if (data.recommendationState ==
-                                    RequestState.Error) {
-                                  return Text(data.message);
-                                } else if (data.recommendationState ==
-                                    RequestState.Loaded) {
-                                  return Container(
-                                    height: 200,
-                                    margin: const EdgeInsets.only(top: 10),
-                                    child: ListView.separated(
-                                      scrollDirection: Axis.horizontal,
-                                      separatorBuilder: (context, index) =>
-                                          const SizedBox(width: 15),
-                                      itemBuilder: (context, index) {
-                                        final tv =
-                                            data.tvSeriesRecommendation[index];
-                                        return Padding(
-                                          padding: const EdgeInsets.all(0),
-                                          child: InkWell(
-                                            onTap: () {
-                                              Navigator.pushReplacementNamed(
-                                                context,
-                                                TvSeriesDetailPage.ROUTE_NAME,
-                                                arguments: tv.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(4),
-                                              ),
-                                              child: CachedNetworkImage(
-                                                width: 120,
-                                                fit: BoxFit.cover,
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w500${tv.posterPath}',
-                                                placeholder: (context, url) {
-                                                  return Shimmer.fromColors(
-                                                    baseColor:
-                                                        Colors.grey[700]!,
-                                                    highlightColor:
-                                                        Colors.grey[500]!,
-                                                    enabled: true,
-                                                    child: Container(
-                                                      height: 130,
-                                                      color: Colors.grey,
-                                                    ),
-                                                  );
-                                                },
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      itemCount: tvSeriesRecommendations.length,
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
+                            Text('Recommendations', style: kHeading6),
+                            _buildRecommendationTvSeries(),
                           ],
                         ),
                       ),
@@ -294,13 +159,119 @@ class DetailContent extends StatelessWidget {
             foregroundColor: Colors.white,
             child: IconButton(
               icon: Icon(Icons.arrow_back),
-              onPressed: () {
-                Navigator.pop(context);
-              },
+              onPressed: () => Navigator.pop(context),
             ),
           ),
         )
       ],
+    );
+  }
+
+  ElevatedButton _buildWatchlistButton(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: kMikadoYellow,
+        foregroundColor: kRichBlack,
+      ),
+      onPressed: () async {
+        final notifier = Provider.of<TvSeriesDetailNotifier>(
+          context,
+          listen: false,
+        );
+
+        if (!isAddedWatchlist) {
+          await notifier.addWatchlist(tvSeries);
+        } else {
+          await notifier.removeWatchlist(tvSeries);
+        }
+
+        final message = notifier.watchlistMessage;
+
+        if (message == TvSeriesDetailNotifier.watchlistAddSuccessMessage ||
+            message == TvSeriesDetailNotifier.watchlistRemoveSuccessMessage) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(message)),
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text(message),
+            ),
+          );
+        }
+      },
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          isAddedWatchlist ? Icon(Icons.check) : Icon(Icons.add),
+          Text('Watchlist'),
+        ],
+      ),
+    );
+  }
+
+  Consumer<TvSeriesDetailNotifier> _buildRecommendationTvSeries() {
+    return Consumer<TvSeriesDetailNotifier>(
+      builder: (context, data, child) {
+        if (data.recommendationState == RequestState.Loading) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (data.recommendationState == RequestState.Error) {
+          return Text(data.message);
+        } else if (data.recommendationState == RequestState.Loaded) {
+          return Container(
+            height: 200,
+            margin: const EdgeInsets.only(top: 10),
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              separatorBuilder: (context, index) => const SizedBox(width: 15),
+              itemBuilder: (context, index) {
+                final tv = data.tvSeriesRecommendation[index];
+                final posterPath =
+                    'https://image.tmdb.org/t/p/w500${tv.posterPath}';
+
+                return Padding(
+                  padding: const EdgeInsets.all(0),
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pushReplacementNamed(
+                        context,
+                        TvSeriesDetailPage.ROUTE_NAME,
+                        arguments: tv.id,
+                      );
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                      child: CachedNetworkImage(
+                        width: 120,
+                        fit: BoxFit.cover,
+                        imageUrl: posterPath,
+                        placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.grey[700]!,
+                          highlightColor: Colors.grey[500]!,
+                          enabled: true,
+                          child: Container(
+                            height: 130,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
+                  ),
+                );
+              },
+              itemCount: tvSeriesRecommendations.length,
+            ),
+          );
+        } else {
+          return Container();
+        }
+      },
     );
   }
 
@@ -315,16 +286,5 @@ class DetailContent extends StatelessWidget {
     }
 
     return result.substring(0, result.length - 2);
-  }
-
-  String _showDuration(int runtime) {
-    final int hours = runtime ~/ 60;
-    final int minutes = runtime % 60;
-
-    if (hours > 0) {
-      return '${hours}h ${minutes}m';
-    } else {
-      return '${minutes}m';
-    }
   }
 }

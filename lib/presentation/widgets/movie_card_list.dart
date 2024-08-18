@@ -15,13 +15,11 @@ class MovieCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: GestureDetector(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            MovieDetailPage.ROUTE_NAME,
-            arguments: movie.id,
-          );
-        },
+        onTap: () => Navigator.pushNamed(
+          context,
+          MovieDetailPage.ROUTE_NAME,
+          arguments: movie.id,
+        ),
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
