@@ -1,0 +1,29 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "adult": false,
+      "backdrop_path": "/uCY1j1YqfDWRbbS7hJwd9szX1sJ.jpg",
+      "genre_ids": [
+        10766,
+        18,
+        35
+      ],
+      "id": 237480,
+      "origin_country": [
+        "BR"
+      ],
+      "original_language": "pt",
+      "original_name": "No Rancho Fundo",
+      "overview": "",
+      "popularity": 2042.883,
+      "poster_path": "/eONkvEahSQJan1HTzWJKjvaMe29.jpg",
+      "first_air_date": "2024-04-15",
+      "name": "No Rancho Fundo",
+      "vote_average": 4.912,
+      "vote_count": 18
+    }
+  ],
+  "total_pages": 8917,
+  "total_results": 178330
+}

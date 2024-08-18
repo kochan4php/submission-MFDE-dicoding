@@ -15,7 +15,7 @@ class TvSeriesResponse extends Equatable {
 
   Map<String, dynamic> toJson() {
     return {
-      'tvSeriesList': List<TvSeriesModel>.from(
+      'results': List<dynamic>.from(
         tvSeriesList.map((x) => x.toJson()),
       ),
     };

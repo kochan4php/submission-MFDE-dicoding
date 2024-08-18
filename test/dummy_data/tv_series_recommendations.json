@@ -1,0 +1,30 @@
+{
+  "page": 1,
+  "results": [
+    {
+      "backdrop_path": "/iprMfJ9VHS4wMhBXyHtN7l9d2hP.jpg",
+      "id": 1405,
+      "name": "Dexter",
+      "original_name": "Dexter",
+      "overview": "Dexter Morgan, a blood spatter pattern analyst for the Miami Metro Police also leads a secret life as a serial killer, hunting down criminals who have slipped through the cracks of justice.",
+      "poster_path": "/q8dWfc4JwQuv3HayIZeO84jAXED.jpg",
+      "media_type": "tv",
+      "adult": false,
+      "original_language": "en",
+      "genre_ids": [
+        80,
+        18,
+        9648
+      ],
+      "popularity": 639.655,
+      "first_air_date": "2006-10-01",
+      "vote_average": 8.194,
+      "vote_count": 4133,
+      "origin_country": [
+        "US"
+      ]
+    }
+  ],
+  "total_pages": 2,
+  "total_results": 40
+}

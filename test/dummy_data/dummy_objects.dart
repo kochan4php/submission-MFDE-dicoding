@@ -1,7 +1,9 @@
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/tv_series_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv_series.dart';
 import 'package:ditonton/domain/entities/tv_series_detail.dart';
 
 final testMovie = Movie(
@@ -74,3 +76,24 @@ final TvSeriesDetail testTvSeriesDetail = TvSeriesDetail(
   numberOfSeasons: 2,
   voteAverage: 4.5,
 );
+
+final TvSeriesTable testTvSeriesTable = TvSeriesTable(
+  id: 1,
+  overview: 'overview',
+  posterPath: 'posterPath',
+  name: 'name',
+);
+
+final TvSeries testWatchtlistTvSeries = TvSeries.watchList(
+  id: 1,
+  overview: 'overview',
+  posterPath: 'posterPath',
+  name: 'name',
+);
+
+final Map<String, dynamic> testTvSeriesMap = {
+  'id': 1,
+  'overview': 'overview',
+  'posterPath': 'posterPath',
+  'name': 'name',
+};
