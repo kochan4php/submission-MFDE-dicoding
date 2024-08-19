@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv_series.dart';
+import 'package:ditonton/presentation/pages/airing_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/popular_tv_series_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
 import 'package:ditonton/presentation/pages/top_rated_tv_series_page.dart';
@@ -14,7 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TvSeriesListPage extends StatefulWidget {
-  static const String ROUTE_NAME = '/airing-tv-series';
+  static const String ROUTE_NAME = '/list-tv-series';
 
   @override
   State<TvSeriesListPage> createState() => _TvSeriesListPageState();
@@ -57,11 +58,13 @@ class _TvSeriesListPageState extends State<TvSeriesListPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: Text('Now Airing', style: kHeading6),
+              SubHeading(
+                title: 'Now Airing',
+                onTap: () => Navigator.pushNamed(
+                  context,
+                  AiringTvSeriesPage.ROUTE_NAME,
+                ),
               ),
-              const SizedBox(height: 10),
               Consumer<TvSeriesListNotifier>(
                 builder: (context, data, child) {
                   final state = data.nowAiringState;

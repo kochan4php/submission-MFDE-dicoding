@@ -22,7 +22,7 @@ class SubHeading extends StatelessWidget {
           GestureDetector(
             onTap: onTap,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
                   Text('See More', style: kSubtitle),
