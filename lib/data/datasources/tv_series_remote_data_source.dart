@@ -81,8 +81,6 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
       Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'),
     );
 
-    print(response.body);
-
     if (response.statusCode == 200) {
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
@@ -97,7 +95,6 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
     );
 
     if (response.statusCode == 200) {
-      print(response.body);
       return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
     } else {
       throw ServerException();
