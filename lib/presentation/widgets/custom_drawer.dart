@@ -9,7 +9,6 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -23,14 +22,6 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 accountName: Text('Ditonton'),
                 accountEmail: Text('ditonton@dicoding.com'),
-              ),
-              Positioned(
-                top: 45,
-                right: 5,
-                child: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: const Icon(Icons.close, size: 30),
-                ),
               ),
             ],
           ),

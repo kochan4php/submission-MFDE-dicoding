@@ -1,8 +1,7 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/airing_tv_series_notifier.dart';
+import 'package:ditonton/presentation/bloc/tv_series/tv_series_now_airing/tv_series_now_airing_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AiringTvSeriesPage extends StatefulWidget {
   static const ROUTE_NAME = '/airing-tv-series';
@@ -17,8 +16,7 @@ class _AiringTvSeriesPageState extends State<AiringTvSeriesPage> {
     super.initState();
 
     Future.microtask(() {
-      Provider.of<AiringTvSeriesNotifier>(context, listen: false)
-          .fetchAiringTvSeries();
+      context.read<TvSeriesNowAiringBloc>().add(TvSeriesNowAiringGetEvent());
     });
   }
 
@@ -31,23 +29,26 @@ class _AiringTvSeriesPageState extends State<AiringTvSeriesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<AiringTvSeriesNotifier>(
-          builder: (context, data, child) {
-            final state = data.airingState;
-
-            if (state == RequestState.Loading) {
+        child: BlocBuilder<TvSeriesNowAiringBloc, TvSeriesNowAiringState>(
+          builder: (context, state) {
+            if (state is TvSeriesNowAiringLoading) {
               return Center(child: CircularProgressIndicator());
-            } else if (state == RequestState.Loaded) {
+            } else if (state is TvSeriesNowAiringHasData) {
               return ListView.builder(
                 itemBuilder: (context, index) => TvSeriesCard(
-                  data.airingTvSeries[index],
+                  state.tvSeries[index],
                 ),
-                itemCount: data.airingTvSeries.length,
+                itemCount: state.tvSeries.length,
+              );
+            } else if (state is TvSeriesNowAiringError) {
+              return Center(
+                key: Key('error_message'),
+                child: Text(state.message),
               );
             } else {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text('No Data'),
               );
             }
           },
