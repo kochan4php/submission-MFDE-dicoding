@@ -121,12 +121,21 @@ class _DetailContentState extends State<DetailContent> {
                             ),
                             SizedBox(height: 16),
                             Text('Overview', style: kHeading6),
-                            Text(widget.movie.overview),
+                            Text(
+                              widget.movie.overview != ''
+                                  ? widget.movie.overview
+                                  : 'No Overview for this Movie',
+                            ),
                             SizedBox(height: 16),
                             Text('Recommendations', style: kHeading6),
-                            Recommendations(
-                              recommendations: widget.recommendations,
-                            ),
+                            widget.recommendations.length > 0
+                                ? Recommendations(
+                                    recommendations: widget.recommendations,
+                                  )
+                                : Text(
+                                    'No Recommendation for this Movie',
+                                    style: kSubtitle,
+                                  ),
                           ],
                         ),
                       ),

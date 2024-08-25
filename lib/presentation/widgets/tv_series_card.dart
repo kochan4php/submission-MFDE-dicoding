@@ -26,7 +26,7 @@ class TvSeriesCard extends StatelessWidget {
             Card(
               child: Container(
                 margin: const EdgeInsets.only(
-                  left: 16 + 80 + 16,
+                  left: 16 + 80 + 12,
                   bottom: 8,
                   right: 8,
                 ),
@@ -50,7 +50,7 @@ class TvSeriesCard extends StatelessWidget {
               ),
             ),
             Container(
-              margin: const EdgeInsets.only(bottom: 16),
+              margin: const EdgeInsets.only(bottom: 16, left: 12),
               child: ClipRRect(
                 child: CachedNetworkImage(
                   imageUrl: '$BASE_IMAGE_URL${tvSeries.posterPath}',

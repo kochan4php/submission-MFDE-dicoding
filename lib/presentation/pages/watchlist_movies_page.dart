@@ -1,3 +1,4 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/bloc/movies/watchlist_movies/watchlist_movies_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
@@ -35,7 +36,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watchlist'),
+        title: Text('Watchlist Movies'),
         forceMaterialTransparency: true,
       ),
       body: Padding(
@@ -45,12 +46,19 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage>
             if (state is WatchlistMoviesLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is WatchlistMoviesHasData) {
-              return ListView.builder(
-                itemBuilder: (context, index) => MovieCard(
-                  state.movies[index],
-                ),
-                itemCount: state.movies.length,
-              );
+              return state.movies.length > 0
+                  ? ListView.builder(
+                      itemBuilder: (context, index) => MovieCard(
+                        state.movies[index],
+                      ),
+                      itemCount: state.movies.length,
+                    )
+                  : Center(
+                      child: Text(
+                        'No Data Watchlist',
+                        style: kHeading6,
+                      ),
+                    );
             } else if (state is WatchlistMoviesError) {
               return Center(
                 key: Key('error_message'),

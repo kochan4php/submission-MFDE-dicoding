@@ -38,6 +38,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
       drawer: CustomDrawer(),
       appBar: AppBar(
         title: Text('Ditonton'),
+        forceMaterialTransparency: true,
         actions: [
           IconButton(
             onPressed: () => Navigator.pushNamed(

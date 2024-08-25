@@ -1,3 +1,4 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/presentation/bloc/tv_series/watchlist_tv_series/watchlist_tv_series_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_series_card.dart';
@@ -37,7 +38,7 @@ class _WatchlistTvSeriesPageState extends State<WatchlistTvSeriesPage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Watchlist'),
+        title: Text('Watchlist Tv Series'),
         forceMaterialTransparency: true,
       ),
       body: Padding(
@@ -47,12 +48,19 @@ class _WatchlistTvSeriesPageState extends State<WatchlistTvSeriesPage>
             if (state is WatchlistTvSeriesLoading) {
               return Center(child: CircularProgressIndicator());
             } else if (state is WatchlistTvSeriesHasData) {
-              return ListView.builder(
-                itemBuilder: (context, index) => TvSeriesCard(
-                  state.tvSeries[index],
-                ),
-                itemCount: state.tvSeries.length,
-              );
+              return state.tvSeries.length > 0
+                  ? ListView.builder(
+                      itemBuilder: (context, index) => TvSeriesCard(
+                        state.tvSeries[index],
+                      ),
+                      itemCount: state.tvSeries.length,
+                    )
+                  : Center(
+                      child: Text(
+                        'No Data Watchlist',
+                        style: kHeading6,
+                      ),
+                    );
             } else if (state is WatchlistTvSeriesError) {
               return Center(
                 key: Key('error_message'),

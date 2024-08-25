@@ -134,12 +134,22 @@ class _DetailContentState extends State<DetailContent> {
                             ),
                             SizedBox(height: 16),
                             Text('Overview', style: kHeading6),
-                            Text(widget.tvSeries.overview),
+                            Text(
+                              widget.tvSeries.overview != ''
+                                  ? widget.tvSeries.overview
+                                  : 'No Overview for this Tv Series',
+                            ),
                             SizedBox(height: 16),
                             Text('Recommendations', style: kHeading6),
-                            Recommendations(
-                              recommendations: widget.tvSeriesRecommendations,
-                            ),
+                            widget.tvSeriesRecommendations.length > 0
+                                ? Recommendations(
+                                    recommendations:
+                                        widget.tvSeriesRecommendations,
+                                  )
+                                : Text(
+                                    'No Recommendation for this Tv Series',
+                                    style: kSubtitle,
+                                  ),
                           ],
                         ),
                       ),
