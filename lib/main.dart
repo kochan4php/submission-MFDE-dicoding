@@ -1,4 +1,5 @@
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/ssl_pinning.dart';
 import 'package:ditonton/common/utils.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:ditonton/presentation/bloc/movies/detail_movie/detail_movie_bloc.dart';
@@ -31,7 +32,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await SSLPinning.init();
+
   di.init();
   runApp(MyApp());
 }
