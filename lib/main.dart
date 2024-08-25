@@ -30,7 +30,6 @@ import 'package:ditonton/presentation/pages/watchlist_tv_series_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
 void main() {
   di.init();
@@ -58,7 +57,7 @@ class MyApp extends StatelessWidget {
       BlocProvider(create: (_) => di.locator<WatchlistTvSeriesBloc>()),
     ];
 
-    return MultiProvider(
+    return MultiBlocProvider(
       providers: providers,
       child: MaterialApp(
         title: 'Flutter Demo',
